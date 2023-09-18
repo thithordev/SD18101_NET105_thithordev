@@ -58,16 +58,16 @@ namespace SD18101_AppAPIs.Controllers
         // tiền lãi = a * (1+b/100)^c - a
         [HttpGet]
         [Route("get-double-profit")]
-        public string GetProfit(double a, double b, int c)
+        public int GetProfit(double a, double b, int c)
         {
             if (a <= 0 || c <= 0 || b <= 0)
             {
-                return "Dữ liệu đầu vào chưa đúng";
+                return 0;
             }
             else
             {
                 var profit = a * Math.Pow((1 + b / 100), c * 1.0) - a;
-                return "Số tiền lãi là: " + (int)profit;
+                return (int)profit;
             }
         }
         // Link request URL sẽ có dạng:
