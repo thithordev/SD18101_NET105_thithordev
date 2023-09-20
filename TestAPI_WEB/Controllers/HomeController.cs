@@ -22,7 +22,7 @@ namespace TestAPI_WEB.Controllers
         public async Task<IActionResult> Privacy(double money, double percent, int month)
         {
             string requestURL = $"https://localhost:7184/WeatherForecast/" +
-    $"get-double-profit?a={money}&b={percent}&c={month}";
+    $"get-double-profit?b={percent}&c={month}&a={money}";
             var HttpClient = new HttpClient(); // Tạo ra 1 httpClient 
             var response = HttpClient.GetAsync(requestURL).Result; // Đọc responseBody từ URL
             string apiData = await response.Content.ReadAsStringAsync();
