@@ -8,6 +8,8 @@ namespace AppsData.Models
 {
     public class Sanpham
     {
+        // Trong Data Anotation chúng ta có thể thực hiện được validate
+        // cho thuộc tính của đối tượng
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
