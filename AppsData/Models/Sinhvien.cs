@@ -19,7 +19,7 @@ namespace AppsData.Models
         public string Description { get; set; }
         [EmailAddress(ErrorMessage = "Email doesn't match suitable format")] // Kiểu email
         public string Email { get; set; }
-        [RegularExpression("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$")]
+        [RegularExpression("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")]
         public string PhoneNumber { get; set; }
         [Required]
         public DateTime DoB { get; set; }

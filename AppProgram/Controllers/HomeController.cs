@@ -22,6 +22,11 @@ namespace AppProgram.Controllers
         {
             return View();
         }
+        // Test validation for Sinhvien
+        public IActionResult CreateSinhvien()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
