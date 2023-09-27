@@ -18,16 +18,52 @@ namespace SD18101_AppAPIs.Controllers
         }
 
         // GET api/<SinhviensController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("get-by-id")]
+        public Sinhvien GetById(Guid id)
         {
-            return "value";
+            return context.sinhviens.Find(id);
+        }
+        [HttpGet("get-by-name")]
+        public IEnumerable<Sinhvien> GetByName(string name)
+        {
+            return context.sinhviens.Where(p=>p.Name.Contains(name)).ToList(); 
         }
 
         // POST api/<SinhviensController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("post-by-obj")]
+        public bool PostByObj([FromBody] Sinhvien sinhvien)
         {
+            try
+            {
+                context.sinhviens.Add(sinhvien);
+                context.SaveChanges(); 
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        [HttpPost("post-by-params")]
+        public bool PostByParams(string Name, string Description, string Email, 
+            string PhoneNumber, DateTime DoB, string Address, int Major)
+        {
+            Guid id = Guid.NewGuid();
+            Sinhvien sinhvien = new Sinhvien
+            {
+                Id = id, Name = Name, Description = Description,
+                Email = Email, PhoneNumber = PhoneNumber, DoB = DoB,
+                Address = Address, Major = Major
+            };
+            try{
+                context.sinhviens.Add(sinhvien);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         // PUT api/<SinhviensController>/5
