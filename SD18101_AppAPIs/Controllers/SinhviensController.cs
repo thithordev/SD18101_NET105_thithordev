@@ -67,15 +67,38 @@ namespace SD18101_AppAPIs.Controllers
         }
 
         // PUT api/<SinhviensController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("put-by-obj")]
+        public bool PutByObj([FromBody] Sinhvien sinhvien)
         {
+            Sinhvien sinhvienfrDb = context.sinhviens.Find(sinhvien.Id);         
+            try
+            {
+                sinhvienfrDb.Name = sinhvien.Name; // Nhớ là phải gán lại
+                context.sinhviens.Update(sinhvienfrDb);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         // DELETE api/<SinhviensController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public bool Delete(Guid id)
         {
+            try
+            {
+                Sinhvien sv = context.sinhviens.Find(id);
+                context.sinhviens.Remove(sv);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;       
+            }
         }
     }
 }
