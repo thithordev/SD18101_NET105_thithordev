@@ -1,4 +1,4 @@
-namespace TestAPI_Web.Models
+namespace AppProgram_MVC.Models
 {
     public class ErrorViewModel
     {

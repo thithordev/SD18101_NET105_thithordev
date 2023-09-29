@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using TestAPI_WEB.Models;
+using TestAPI_Web.Models;
 
-namespace TestAPI_WEB.Controllers
+namespace TestAPI_Web.Controllers
 {
     public class HomeController : Controller
     {
@@ -21,15 +21,17 @@ namespace TestAPI_WEB.Controllers
 
         public async Task<IActionResult> Privacy(double money, double percent, int month)
         {
-            string requestURL = $"https://localhost:7184/WeatherForecast/" +
-    $"get-double-profit?b={percent}&c={month}&a={money}";
-            var HttpClient = new HttpClient(); // Tạo ra 1 httpClient 
-            var response = HttpClient.GetAsync(requestURL).Result; // Đọc responseBody từ URL
-            string apiData = await response.Content.ReadAsStringAsync();
-            // Lấy dữ liệu lấy được chuyển sang dạng string
-            // Lấy kết quả vừa thu được ép kiểu sang kiểu dữ liệu mình cần
-            var result = JsonConvert.DeserializeObject<int>(apiData);
-            ViewData["result"] = result;
+            string requestURL_str = $"https://localhost:7184/WeatherForecast/get-double-profit?a={money}&b={percent}&c={month}";
+            string responseURL_str = $"";
+            // Tạo ra 1 httpClient 
+            using (HttpClient client = new HttpClient())
+            {
+                var res = client.GetAsync(requestURL_str).Result;
+                string data = res.Content.ReadAsStringAsync().Result;
+                var jsondata = JsonConvert.SerializeObject(data);
+                responseURL_str = JsonConvert.DeserializeObject<string>(jsondata) ?? "";
+            }
+            ViewData["result"] = responseURL_str;
             return View();
         }
 
